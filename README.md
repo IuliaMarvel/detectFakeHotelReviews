@@ -8,10 +8,10 @@
 ## Данные
 Используется датасет [Deceptive Opinion Spam Corpus v1.4](https://myleott.com/op-spam.html).
 Этот корпус содержит:
-400 настоящих положительных отзывов с TripAdvisor 
-400 фейковых положительных отзывов с Mechanical Turk 
-400 настоящих отрицательных отзывов от Expedia, Hotels.com, Orbitz, Priceline, TripAdvisor и Yelp 
-400 фейковых отрицательных отзывов от Mechanical Turk.
+ - 400 настоящих положительных отзывов с TripAdvisor 
+ - 400 фейковых положительных отзывов с Mechanical Turk 
+ - 400 настоящих отрицательных отзывов от Expedia, Hotels.com, Orbitz, Priceline, TripAdvisor и Yelp 
+ - 400 фейковых отрицательных отзывов от Mechanical Turk.
 
 ## Модель решения
 1) Получение эмбеддингов отзывов с помощью [LaBSE](https://huggingface.co/sentence-transformers/LaBSE).
