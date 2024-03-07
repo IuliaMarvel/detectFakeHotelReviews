@@ -1,4 +1,4 @@
-# detectFakeHotelReviews
+# Detection of fake hotels reviews
 
 ## Задача
 Множество агрегаторов отелей и туристических мест (Booking, TripAdvisor, Expedia) сталкивается с [проблемой фейковых отзывов на отели](https://www.phocuswire.com/Booking-Expedia-Tripadvisor-form-coalition-to-fight-fake-reviews).
