@@ -18,5 +18,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Set environment variables
 ENV PYTHONUNBUFFERED=1
 
-# Command to run the training script
+# Command to run bash in container
 CMD ["bash"]
