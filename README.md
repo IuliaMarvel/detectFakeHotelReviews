@@ -8,17 +8,7 @@
 
 ## Структура проекта
 
-├── .gitignore\
-├── README.md\
-├── requirements.txt\
-├── Dockerfile\
-├── data\
-├── main_scripts \
-│   ├── infer.py\
-│   ├── rearrange_dataset.py\
-│   └── train.py\
-└── commands.py\
-
+![image](project_structure.png)
 
 ## Данные
 Используется датасет [Deceptive Opinion Spam Corpus v1.4](https://myleott.com/op-spam.html).
