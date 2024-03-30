@@ -11,13 +11,13 @@
 ├── .gitignore\
 ├── README.md\
 ├── requirements.txt\
-├── Dockerfile
-├── data
-├── main_scripts
-│   ├── infer.py
-│   ├── rearrange_dataset.py
-│   └── train.py
-└── commands.py
+├── Dockerfile\
+├── data\
+├── main_scripts \
+│   ├── infer.py\
+│   ├── rearrange_dataset.py\
+│   └── train.py\
+└── commands.py\
 
 
 ## Данные
