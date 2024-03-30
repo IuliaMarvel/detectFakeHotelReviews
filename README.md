@@ -8,9 +8,9 @@
 
 ## Структура проекта
 
-├── .gitignore
-├── README.md
-├── requirements.txt
+├── .gitignore\
+├── README.md\
+├── requirements.txt\
 ├── Dockerfile
 ├── data
 ├── main_scripts
