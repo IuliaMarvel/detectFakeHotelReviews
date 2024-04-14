@@ -1,6 +1,7 @@
 /data
 /lightning_logs
 /output
+/outputs
 /project_env
 *pycache*
 *.pt
