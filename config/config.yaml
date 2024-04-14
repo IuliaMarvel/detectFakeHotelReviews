@@ -1,0 +1,9 @@
+train:
+  data_dir: "data/merged/"
+  batch_size: 32
+  epochs: 2
+
+infer:
+  model_path: "deceptive_review_classifier.pt"
+  test_dir: "data/test/"
+  output_file: "infer_results.txt"
