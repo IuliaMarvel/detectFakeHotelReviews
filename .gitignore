@@ -2,6 +2,7 @@
 /lightning_logs
 /output
 /outputs
+/mlruns
 /project_env
 *pycache*
 *.pt
