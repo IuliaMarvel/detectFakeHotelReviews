@@ -6,7 +6,7 @@ WORKDIR /reviews_project
 
 # Copy the contents of the current directory to the working directory in the container
 COPY requirements.txt /reviews_project/
-COPY data/ /reviews_project/data/ 
+# COPY data/ /reviews_project/data/
 # line above is commented because we will add s3 storage for data later
 # this was used to test train and infer modules locally
 COPY utils/ /reviews_project/utils/
