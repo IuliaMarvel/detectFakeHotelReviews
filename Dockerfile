@@ -2,7 +2,7 @@
 FROM python:3.9-slim
 
 # Set the working directory inside the container
-WORKDIR reviews_project
+WORKDIR /reviews_project
 
 # Copy the contents of the current directory to the working directory in the container
 COPY requirements.txt /reviews_project/
@@ -12,9 +12,9 @@ COPY data/ /reviews_project/data/
 COPY utils/ /reviews_project/utils/
 COPY train.py /reviews_project/
 COPY infer.py /reviews_project/
-COPY config/config.yaml /reviews_project/config
+COPY config/config.yaml /reviews_project/config/
 # Install dependencies listed in requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r /reviews_project/requirements.txt
 
 # Set environment variables
 ENV PYTHONUNBUFFERED=1
