@@ -1,7 +1,7 @@
 train:
   data_dir: "data/merged/"
-  batch_size: 32
-  epochs: 2
+  batch_size: 4
+  epochs: 1
 
 infer:
   model_path: "deceptive_review_classifier.pt"
