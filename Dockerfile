@@ -5,19 +5,21 @@ FROM python:3.9-slim
 WORKDIR /reviews_project
 
 # Copy the contents of the current directory to the working directory in the container
-COPY requirements.txt /reviews_project/
-# COPY data/ /reviews_project/data/
-# line above is commented because we will add s3 storage for data later
-# this was used to test train and infer modules locally
-COPY utils/ /reviews_project/utils/
-COPY train.py /reviews_project/
-COPY infer.py /reviews_project/
-COPY config/config.yaml /reviews_project/config/
-# Install dependencies listed in requirements.txt
-RUN pip install --no-cache-dir -r /reviews_project/requirements.txt
+# COPY requirements.txt /reviews_project/
+# COPY utils/ /reviews_project/utils/
+# COPY train.py /reviews_project/
+# COPY infer.py /reviews_project/
+# COPY config/config.yaml /reviews_project/config/
+# COPY .dvc/config /reviews_project/.dvc/config
+COPY . /reviews_project/
+
+RUN pip install -r /reviews_project/requirements.txt
+
+# RUN dvc pull
 
 # Set environment variables
 ENV PYTHONUNBUFFERED=1
+# ENV MLFLOW_TRACKING_URI=http://mlflow_server:5000
 
 # Command to run bash in container
-CMD ["bash"]
+CMD ["python",  "train.py"]

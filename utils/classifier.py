@@ -2,6 +2,8 @@ import pytorch_lightning as pl
 import torch
 from sentence_transformers import SentenceTransformer
 
+import mlflow
+
 
 class DeceptiveReviewClassifier(pl.LightningModule):
     def __init__(self, num_classes, lr=2e-5):
@@ -29,7 +31,8 @@ class DeceptiveReviewClassifier(pl.LightningModule):
         labels = batch["label"]
         logits = self.forward(reviews)
         loss = torch.nn.functional.cross_entropy(logits, labels)
-        self.log("train_loss", loss)
+        # self.log("train_loss", loss)
+        mlflow.log_metric("train_loss", loss.item(), step=self.global_step)
         return loss
 
     def validation_step(self, batch, batch_idx):
@@ -38,7 +41,8 @@ class DeceptiveReviewClassifier(pl.LightningModule):
         logits = self.forward(reviews)
         logits = self.forward(reviews)
         val_loss = torch.nn.functional.cross_entropy(logits, labels)
-        self.log("val_loss", val_loss)
+        # self.log("val_loss", val_loss)
+        mlflow.log_metric("val_loss", val_loss.item(), step=self.global_step)
         return val_loss
 
     def configure_optimizers(self):

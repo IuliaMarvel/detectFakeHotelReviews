@@ -1,0 +1,17 @@
+services:
+  mlflow:
+    image: bitnami/mlflow:latest
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./mlflow:/mlflow
+    command: mlflow server --host 127.0.0.1 --port 8080
+  
+  project:
+    build: .
+    volumes:
+      - ./data:/reviews_project/data
+    environment:
+      - MLFLOW_TRACKING_URI=http://127.0.0.1:5000
+    depends_on:
+      - mlflow
