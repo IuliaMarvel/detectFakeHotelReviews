@@ -1,5 +1,5 @@
 [core]
     remote = myremote
 ['remote "myremote"']
-    url = gdrive://1kQZlCcjMCJrlJUgZEYDdpg0xtdTe5kw0
+    url = gdrive://1kQZlCcjMCJrlJUgZEYDdpg0xtdTe5kw0?usp=sharing
     gdrive_acknowledge_abuse = true
