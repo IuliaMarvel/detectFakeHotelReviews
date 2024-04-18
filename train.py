@@ -1,13 +1,13 @@
 import os
 
 import hydra
-import mlflow
 import pytorch_lightning as pl
 import torch
 from omegaconf import DictConfig
 from sklearn.model_selection import train_test_split
 from torch.utils.data import DataLoader
 
+import mlflow
 from utils.classifier import DeceptiveReviewClassifier
 from utils.dataset import HotelReviewsDataset
 
@@ -26,7 +26,7 @@ def train_model(train_loader, val_loader, num_classes=2, max_epochs=1, lr=2e-5):
 def main(cfg: DictConfig):
     data_dir = cfg.train.data_dir
     reviews = [data_dir + f for f in os.listdir(data_dir) if not (f.startswith("."))][
-        :5
+        :10
     ]
 
     reviews_train, reviews_val = train_test_split(
@@ -44,7 +44,6 @@ def main(cfg: DictConfig):
     # mlflow.set_tracking_uri(uri="http://127.0.0.1:5000")
 
     with mlflow.start_run():
-        mlflow.pytorch.autolog()
         model = train_model(train_loader, val_loader, max_epochs=cfg.train.epochs)
 
     torch.save(model.state_dict(), "deceptive_review_classifier.pt")
