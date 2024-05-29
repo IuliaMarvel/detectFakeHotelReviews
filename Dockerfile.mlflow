@@ -1,0 +1,14 @@
+# Use a Python runtime as a base image
+FROM python:3.11-slim
+
+# Install MLflow
+RUN apt-get update && apt-get upgrade -y && apt-get install -y procps
+
+RUN pip install mlflow==2.12.1
+
+# Expose the MLflow port
+EXPOSE 5000
+
+# Command to start MLflow server with SQLite as the backend store
+# CMD ["mlflow", "server", "--backend-store-uri", "sqlite:///mlflow.db", "--host", "0.0.0.0"]
+CMD ["bash"]
