@@ -9,44 +9,33 @@ from torch.utils.data import DataLoader
 
 import mlflow
 from utils.classifier import DeceptiveReviewClassifier
-from utils.dataset import HotelReviewsDataset
+from utils.dataset import HotelReviewsDataModule
 
 
-def train_model(train_loader, val_loader, num_classes=2, max_epochs=1, lr=2e-5):
+def train_model(data_module, num_classes=2, max_epochs=1, lr=2e-5):
     model = DeceptiveReviewClassifier(num_classes=num_classes, lr=lr)
     accelerator = "cuda" if torch.cuda.is_available() else "cpu"
     trainer = pl.Trainer(max_epochs=max_epochs, accelerator=accelerator)
 
-    trainer.fit(model, train_loader, val_loader)
+    trainer.fit(model, data_module)
 
     return model
 
 
 @hydra.main(version_base=None, config_path="config", config_name="config")
 def main(cfg: DictConfig):
-    data_dir = cfg.train.data_dir
-    reviews = [data_dir + f for f in os.listdir(data_dir) if not (f.startswith("."))][
-        :10
-    ]
-
-    reviews_train, reviews_val = train_test_split(
-        reviews, test_size=0.5, random_state=42
+    
+    data_module = HotelReviewsDataModule(
+        data_dir=cfg.train.data_dir,
+        batch_size=cfg.train.batch_size
     )
 
-    train_dataset = HotelReviewsDataset(reviews_train)
-    val_dataset = HotelReviewsDataset(reviews_val)
-
-    train_loader = DataLoader(
-        train_dataset, batch_size=cfg.train.batch_size, shuffle=True
-    )
-    val_loader = DataLoader(val_dataset, batch_size=cfg.train.batch_size, shuffle=False)
-
-    # mlflow.set_tracking_uri(uri="http://127.0.0.1:5000")
-
+    mlflow.set_tracking_uri(uri="http://mlflow_server:5000")
+    mlflow.set_experiment('/reviews-check-experiment')
     with mlflow.start_run():
-        model = train_model(train_loader, val_loader, max_epochs=cfg.train.epochs)
+        model = train_model(data_module, max_epochs=cfg.train.epochs)
 
-    torch.save(model.state_dict(), "deceptive_review_classifier.pt")
+    torch.save(model.state_dict(), cfg.infer.model_path)
 
 
 if __name__ == "__main__":
