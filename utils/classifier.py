@@ -1,8 +1,7 @@
+import mlflow
 import pytorch_lightning as pl
 import torch
 from sentence_transformers import SentenceTransformer
-
-import mlflow
 
 
 class DeceptiveReviewClassifier(pl.LightningModule):

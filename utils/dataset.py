@@ -1,7 +1,8 @@
 import os
-from torch.utils.data import DataLoader, Dataset
-from sklearn.model_selection import train_test_split
+
 import pytorch_lightning as pl
+from sklearn.model_selection import train_test_split
+from torch.utils.data import DataLoader, Dataset
 
 
 class HotelReviewsDataset(Dataset):
@@ -30,10 +31,16 @@ class HotelReviewsDataModule(pl.LightningDataModule):
         self.random_state = random_state
 
     def setup(self, stage=None):
-        reviews = [os.path.join(self.data_dir, f) for f in os.listdir(self.data_dir) if not f.startswith(".")]
-        
-        reviews_train, reviews_val = train_test_split(reviews, test_size=self.val_split, random_state=self.random_state)
-        
+        reviews = [
+            os.path.join(self.data_dir, f)
+            for f in os.listdir(self.data_dir)
+            if not f.startswith(".")
+        ]
+
+        reviews_train, reviews_val = train_test_split(
+            reviews, test_size=self.val_split, random_state=self.random_state
+        )
+
         self.train_dataset = HotelReviewsDataset(reviews_train)
         self.val_dataset = HotelReviewsDataset(reviews_val)
 
