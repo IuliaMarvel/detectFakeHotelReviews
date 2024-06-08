@@ -8,8 +8,8 @@ from tqdm import tqdm
 from utils.classifier import DeceptiveReviewClassifier
 
 
-def load_model(model_path):
-    model = DeceptiveReviewClassifier(num_classes=2)
+def load_model(model_path, num_classes):
+    model = DeceptiveReviewClassifier(num_classes=num_classes)
     model.load_state_dict(torch.load(model_path))
     model.eval()
     return model
@@ -26,7 +26,7 @@ def predict_review_deceptiveness(model, review):
 
 @hydra.main(version_base=None, config_path="config", config_name="config")
 def main(cfg: DictConfig):
-    model = load_model(cfg.infer.model_path)
+    model = load_model(cfg.infer.model_path, cfg.num_clases)
 
     reviews = os.listdir(cfg.infer.test_dir)
 

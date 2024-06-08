@@ -23,7 +23,7 @@ class HotelReviewsDataset(Dataset):
 
 
 class HotelReviewsDataModule(pl.LightningDataModule):
-    def __init__(self, data_dir, batch_size, val_split=0.5, random_state=42):
+    def __init__(self, data_dir, batch_size, val_split, random_state):
         super().__init__()
         self.data_dir = data_dir
         self.batch_size = batch_size

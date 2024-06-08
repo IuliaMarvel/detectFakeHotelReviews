@@ -12,7 +12,7 @@ from utils.classifier import DeceptiveReviewClassifier
 from utils.dataset import HotelReviewsDataModule
 
 
-def train_model(data_module, num_classes=2, max_epochs=1, lr=2e-5):
+def train_model(data_module, num_classes, max_epochs, lr):
     model = DeceptiveReviewClassifier(num_classes=num_classes, lr=lr)
     accelerator = "cuda" if torch.cuda.is_available() else "cpu"
     trainer = pl.Trainer(max_epochs=max_epochs, accelerator=accelerator)
@@ -25,13 +25,21 @@ def train_model(data_module, num_classes=2, max_epochs=1, lr=2e-5):
 @hydra.main(version_base=None, config_path="config", config_name="config")
 def main(cfg: DictConfig):
     data_module = HotelReviewsDataModule(
-        data_dir=cfg.train.data_dir, batch_size=cfg.train.batch_size
+        data_dir=cfg.train.data_dir,
+        batch_size=cfg.train.batch_size,
+        val_split=cfg.val_split,
+        random_state=cfg.random_state,
     )
 
     mlflow.set_tracking_uri(uri="http://mlflow_server:5000")
     mlflow.set_experiment("/reviews-check-experiment")
     with mlflow.start_run():
-        model = train_model(data_module, max_epochs=cfg.train.epochs)
+        model = train_model(
+            data_module,
+            num_classes=cfg.num_classes,
+            max_epochs=cfg.train.epochs,
+            lr=cfg.lr,
+        )
 
     torch.save(model.state_dict(), cfg.infer.model_path)
 
