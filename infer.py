@@ -26,7 +26,7 @@ def predict_review_deceptiveness(model, review):
 
 @hydra.main(version_base=None, config_path="config", config_name="config")
 def main(cfg: DictConfig):
-    model = load_model(cfg.infer.model_path, cfg.num_clases)
+    model = load_model(cfg.infer.model_path, cfg.num_classes)
 
     reviews = os.listdir(cfg.infer.test_dir)
 
